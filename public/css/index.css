@@ -1,0 +1,21 @@
+.rateForm .container .table {
+    font-size: medium;
+    text-align: center;
+    border-radius: 10%;
+}
+.rateForm .container .backForm{
+    
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 1rem;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 1.1rem;
+    outline: 0;
+}

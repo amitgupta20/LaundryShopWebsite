@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.png?v=" + Math.trunc(Math.random()*999)>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/generateInvoice.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Pending Laundries</title>
+</head>
+
+<body onload="if (document.referrer == '') self.location='login';">
+
+    <div class="header-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <div class="logo-image">
+                    <img src="images/laundryLogo.jpeg" class="img-fluid">
+                </div>
+            </a>
+            <div class="pull-left item">
+                <h1>LNM Laundry Services</h1>
+            </div>
+            <div class="pull-right headNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link listing" href="/empHomePage">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link listing" href="/generateInvoice">Generate Invoice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active listing" href="/pendingLaundry">Pending Laundries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link listing" href="/allLaundry">All Laundries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link listing" href="/">LogOut</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="checkStatus">
+        <div class="container myform">
+            <div class="col-md-12 text-center genHead">
+                <h1>Pending Laundries</h1>
+            </div>
+            <div class="row">
+                
+                <div class="col-md-12">
+                    <% if(message){ %>
+                        <div class="alert alert-dismissable fade show alert-<%= message.type %>" role="alert">
+                            <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <strong>
+                                <%= message.message %>
+                            </strong>
+                        </div>
+                        <%}%>
+                            <div class="table-responsive">
+                                <% if (users !='' ) { %>
+                                    <table class="table table-striped text-center">
+                                        <thead class="table-header">
+                                            <tr class="">
+                                                <th>S No.</th>
+                                                <th>Bill Number</th>
+                                                <th>Mobile Number</th>
+                                                <th>Bill Amount(&#8377;)</th>
+                                                <th>Payment Status</th>
+                                                <th>Laundry Status</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% users.forEach((row, index)=> { %>
+                                                <tr class="align-middle">
+                                                    <td>
+                                                        <%= index + 1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%= row.billNum %>
+                                                    </td>
+                                                    <td>
+                                                        <%= row.contactNum %>
+                                                    </td>
+                                                    <td>
+                                                        <%= row.totalAmount %>
+                                                    </td>
+                                                    <td>
+                                                        <%= row.paymentStatus %>
+                                                    </td>
+                                                    <td>
+                                                        <%= row.laundryStatus %>
+                                                    </td>
+                                                    <td>
+                                                            <a href="/paid/<%= row._id %>" class="text-success"><button type="button" class="btn btn-dark">Set Paid</button></a>                                               
+                                                            <a href="/laundryCompleted/<%= row._id %>" class="text-success"><button type="button" class="btn btn-warning"> Laundry Completed</button></a>
+                                                        
+                                                    </td>
+                                                </tr>
+                                                <% }) %>
+                                        </tbody>
+                                    </table>
+                                    <% } else { %>
+                                        <h1 class="text-center" style="font-size: medium;">No Pending Laundry Found in the database</h1>
+                                        <% } %>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-3 item">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Washing</a></li>
+                        <li><a href="#">Ironing</a></li>
+                        <li><a href="#">DryCleaning</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-3 item text">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <p>+0141 8569XXX</p>
+                        <p>+91 8569XXXXXX</p>
+                        <p>lnmLaundry@lnmiit.ac.in</p>
+                    </ul>
+                </div>
+                <div class="col-md-6 item text">
+                    <h3>LNM Laundry Services</h3>
+                    <p class="addressTy">We provide wide range of services in washing, ironing , dry cleaning like
+                        plain wash,sand ironing , soda drycleaning etc.</p>
+                    <p class="addressTy">Address: Rupa ki Nangal, Post-Sumel, Via, Jamdoli, Jaipur, Rajasthan 302031
+                    </p>
+                </div>
+                <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i
+                            class="icon ion-social-twitter"></i></a><a href="#"><i
+                            class="icon ion-social-snapchat"></i></a><a href="#"><i
+                            class="icon ion-social-instagram"></i></a></div>
+            </div>
+            <p class="copyright">LNM Laundry Services © 2021</p>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("table").DataTable({
+                order:[0,'desc']
+            });
+        });
+    </script>
+</body>
+
+</html>

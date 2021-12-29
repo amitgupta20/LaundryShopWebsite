@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.png?v="+ Math.trunc(Math.random()*999)>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/generateInvoice.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Register Laundry</title>
+</head>
+
+<body onload="if (document.referrer == '') self.location='login';">
+
+    <div class="header-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <div class="logo-image">
+                    <img src="images/laundryLogo.jpeg" class="img-fluid">
+                </div>
+            </a>
+            <div class="pull-left item">
+                <h1>LNM Laundry Services</h1>
+            </div>
+            <div class="pull-right headNav">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link listing" href="/empHomePage">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active listing" href="/generateInvoice">Generate Invoice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link listing" href="/pendingLaundry">Pending Laundries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link listing" href="/allLaundry">All Laundries</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link listing" href="/">LogOut</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="checkStatus">
+        <div class="container myform">
+            <div class="col-md-12 text-center genHead">
+                <h1>Generate Invoice</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="/registerLaundry" method="POST">
+                        <div class="entries pull-left col-md-4">
+                            <table class="table table-bordered table-hover" id="tab_logic_total">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-center headings">Mobile Number</th>
+                                        <td class="text-center laundryItems"><input required type="text" name='contactNumber' pattern="[1-9]{1}[0-9]{9}"
+                                                placeholder='Mobile Number' class="form-control" id="mobileNumber" />
+                                                <small>*10 Digit Mobile Number and First digit should not be 0</small>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="entries pull-right col-md-4">
+                            <table class="table table-bordered table-hover" id="tab_logic_total">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-center headings">Date</th>
+                                        <td class="laundryItems"><input type="datetime" name='invDate' placeholder='Date' id='invDate'
+                                             class="form-control" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <table class="table table-bordered table-hover" id="tab_logic">
+                            <col width="6%">
+                            <col width="20%">
+                            <col width="27%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="16%">
+                            <thead>
+                                <tr>
+                                    <th class="text-center headings"> # </th>
+                                    <th class="text-center headings"> Laundry Type </th>
+                                    <th class="text-center headings"> Laundry Description </th>
+                                    <th class="text-center headings"> Quantity </th>
+                                    <th class="text-center headings"> Cost </th>
+                                    <th class="text-center headings"> Total Cost </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="laundryItems">1</td>
+                                    <td class="laundryItems">
+                                        <p>Washing(Small Clothes)</p>
+                                    </td>
+                                    <td class="laundryItems"><textarea name='wsDesc' placeholder='Laundry Description'
+                                            class="form-control desc"></textarea></td>
+                                    <td class="laundryItems"><input type="number" name='wsQty' value=0 id="wsQty"
+                                            placeholder='Quantity' class="form-control quantity" /></td>
+                                    <td class="laundryItems"><input type="number" name='sWperCost' value=20 id="wspCost"
+                                            placeholder='Cost' class="form-control cost" /></td>
+                                    <td class="laundryItems"><input type="number" name='sWcost' id="wstCost" value="0"
+                                            placeholder='Total Cost' class="form-control total" readonly /></td>
+                                </tr>
+                                <tr>
+                                    <td class="laundryItems">2</td>
+                                    <td class="laundryItems">
+                                        <p>Washing(Big Clothes)</p>
+                                    </td>
+                                    <td class="laundryItems"><textarea name='wbDesc' placeholder='Laundry Description'
+                                            class="form-control desc"></textarea></td>
+                                    <td class="laundryItems"><input type="number" name='wbQty' placeholder='Quantity' value=0 id="wbQty"
+                                            class="form-control quantity" /></td>
+                                    <td class="laundryItems"><input type="number" name='bWperCost' placeholder='Cost' value=40 id="wbpCost"
+                                            class="form-control cost" /></td>
+                                    <td class="laundryItems"><input type="number" name='bWcost' placeholder='Total Cost' id="wbtCost" value=0
+                                            class="form-control total" readonly/></td>
+                                </tr>
+                                <tr>
+                                    <td class="laundryItems">3</td>
+                                    <td class="laundryItems">
+                                        <p>Ironing</p>
+                                    <td class="laundryItems"><textarea name='ironDesc' placeholder='Laundry Description'
+                                            class="form-control desc"></textarea></td>
+                                    <td class="laundryItems"><input type="number" name='ironQty' placeholder='Quantity' value=0 id="ironQty"
+                                            class="form-control quantity" /></td>
+                                    <td class="laundryItems"><input type="number" name='perCost[]' placeholder='Cost' value=25 id="ironpCost"
+                                            class="form-control cost" /></td>
+                                    <td class="laundryItems"><input type="number" name='cost[]' placeholder='Total Cost' id="irontCost" value=0
+                                            class="form-control total" readonly/></td>
+                                </tr>
+                                <tr>
+                                    <td class="laundryItems">4</td>
+                                    <td class="laundryItems">
+                                        <p>DryCleaning</p>
+                                    </td>
+                                    <td class="laundryItems"><textarea name='dryDesc' placeholder='Laundry Description'
+                                            class="form-control desc"></textarea></td>
+                                    <td class="laundryItems"><input type="number" name='dryQty' placeholder='Quantity' value=0 id="dryQty"
+                                            class="form-control quantity" /></td>
+                                    <td class="laundryItems"><input type="number" name='perCost[]' placeholder='Cost' value=60 id="drypCost"
+                                            class="form-control cost" /></td>
+                                    <td class="laundryItems"><input type="number" name='cost[]' placeholder='Total Cost' id="drytCost" value=0
+                                            class="form-control total" readonly/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row clearfix" style="margin-top:20px">
+                            <div class="col-md-12">
+                                <div class="pull-right col-md-4">
+                                    <table class="table table-bordered table-hover" id="tab_logic_total">
+                                        <tbody>
+                                            <tr>
+                                                <th class="text-center headings">Grand Total</th>
+                                                <td class="text-center laundryItems"><input type="number"
+                                                        name='totalAmount' placeholder=0 value=0 class="form-control"
+                                                        id="totalAmount" readonly />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-md-12">
+                                <button type="reset" id='restB'
+                                    class="pull-left btn mybtn btn-primary tx-tfm">Reset</button>
+                                <button type="submit" id='generateInv'
+                                    class="pull-right btn mybtn btn-primary tx-tfm">Generate
+                                    Invoice</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-3 item">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Washing</a></li>
+                        <li><a href="#">Ironing</a></li>
+                        <li><a href="#">DryCleaning</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-3 item text">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <p>+0141 8569XXX</p>
+                        <p>+91 8569XXXXXX</p>
+                        <p>lnmLaundry@lnmiit.ac.in</p>
+                    </ul>
+                </div>
+                <div class="col-md-6 item text">
+                    <h3>LNM Laundry Services</h3>
+                    <p class="addressTy">We provide wide range of services in washing, ironing , dry cleaning like
+                        plain wash,sand ironing , soda drycleaning etc.</p>
+                    <p class="addressTy">Address: Rupa ki Nangal, Post-Sumel, Via, Jamdoli, Jaipur, Rajasthan 302031
+                    </p>
+                </div>
+                <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i
+                            class="icon ion-social-twitter"></i></a><a href="#"><i
+                            class="icon ion-social-snapchat"></i></a><a href="#"><i
+                            class="icon ion-social-instagram"></i></a></div>
+            </div>
+            <p class="copyright">LNM Laundry Services © 2021</p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="js/generateInvoice.js"></script>
+</body>
+
+</html>
