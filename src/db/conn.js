@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/LnmLaundryDatabase",{
+const  mongodbURL = "mongodb+srv://guptajee123:amitpwd@cluster0.tcrvm.mongodb.net/?retryWrites=true&w=majority";
+mongoose.connect(mongodbURL,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
 }).then(() => {

@@ -8,28 +8,28 @@ const Rate = require("../models/rate");
 // HomePage without login/landing homepage
 router.get('/',async(req,res) => {    
     try {
-        // const slotData = new Slot({
-        //     id:1,
-        //     washTime:"Sun Dec 26 2021 10:00:00 GMT+0530 (India Standard Time)",
-        //     ironTime:"Sun Dec 26 2021 10:00:00 GMT+0530 (India Standard Time)",
-        //     dryTime:"Sun Dec 26 2021 10:00:00 GMT+0530 (India Standard Time)",
-        //     openingTime:"10:00 AM",
-        //     closingTime:"8:00 PM"
-        // })
-        // await slotData.save();
-        // const rateData = new Rate({
-        //     id:1,
-        //     simpleWash:20,
-        //     woolenWash:45,
-        //     blanketWash:55,
-        //     plainIron:15,
-        //     delicateIron:35,
-        //     sandIron:45,
-        //     normalDry:55,
-        //     sodaDry:105,
-        //     woolenDry:90
-        // })
-        // await rateData.save();
+        const slotData = new Slot({
+            id:1,
+            washTime:"Sun Dec 26 2021 10:00:00 GMT+0530 (India Standard Time)",
+            ironTime:"Sun Dec 26 2021 10:00:00 GMT+0530 (India Standard Time)",
+            dryTime:"Sun Dec 26 2021 10:00:00 GMT+0530 (India Standard Time)",
+            openingTime:"10:00 AM",
+            closingTime:"8:00 PM"
+        })
+        await slotData.save();
+        const rateData = new Rate({
+            id:1,
+            simpleWash:20,
+            woolenWash:45,
+            blanketWash:55,
+            plainIron:15,
+            delicateIron:35,
+            sandIron:45,
+            normalDry:55,
+            sodaDry:105,
+            woolenDry:90
+        })
+        await rateData.save();
         
         var dateIndia1 = new Date();
         var dateIndia2 = new Date();
