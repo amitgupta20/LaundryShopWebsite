@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const  mongodbURL = "mongodb+srv://guptajee123:amitpwd@cluster0.tcrvm.mongodb.net/?retryWrites=true&w=majority";
+const  mongodbURL = `mongodb+srv://${process.env.USER}:${process.env.PWD}@cluster0.tcrvm.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(mongodbURL,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
